@@ -1,0 +1,50 @@
+﻿@page "/"
+
+@inject IClassViewModel ClassVM
+
+
+<h1>@ClassVM.Message</h1>
+
+<select size="8" style="width:100%;" @onchange="ClassVM.ClassSelected">
+    @foreach (var c in ClassVM.ClassListViewModel)
+    {
+        if (ClassVM.SelectedClass != null && c.IdClass == ClassVM.SelectedClass.IdClass)
+        {
+            <option selected value="@c.IdClass">@c.StringClass</option>
+        }
+        else
+        {
+            <option value="@c.IdClass">@c.StringClass</option>
+        }
+    }
+</select>
+
+<h3>Adicionar classe</h3>
+
+<input placeholder="String" @bind="ClassVM.ClassString" />
+
+<input placeholder="Value" @bind="ClassVM.ClassValue" />
+
+<button @onclick="ClassVM.AddClass">Add Class</button>
+
+<button @onclick="ClassVM.DeleteClass">Delete Class</button>
+
+
+<h3>Update classe</h3>
+
+@if (ClassVM.SelectedClass != null)
+{
+    <input placeholder="String" @bind="ClassVM.SelectedClass.StringClass" />
+
+    <input placeholder="Value" @bind="ClassVM.SelectedClass.ValueClass" />
+}
+else
+{
+    <input placeholder="String" @bind="ClassVM.ClassString" />
+
+    <input placeholder="Value" @bind="ClassVM.ClassValue" />
+}
+
+
+
+<button @onclick="ClassVM.UpdateClass">Update Class</button>
